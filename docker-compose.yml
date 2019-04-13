@@ -1,21 +1,23 @@
-version: '3.1'
-
+version: '3.1'                                                                                                                                                        
+  
 services:
   joomla:
-    image: joomla
+    image: joomla:3.9.5-php7.3-fpm-alpine
     restart: always
     links:
       - joomladb:mysql
     ports:
-      - 8080:80
+      - 8082:80
     environment:
       JOOMLA_DB_HOST: joomladb
       JOOMLA_DB_PASSWORD: example
       JOOMLA_DB_USER: root
       JOOMLA_DB_NAME: joomla
-      
+    volumes:
+      - ./html:/var/www/html
+ 
   joomladb:
-    image: mysql:5.6
+    image: mysql:5.6.43
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
